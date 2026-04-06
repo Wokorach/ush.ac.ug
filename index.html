@@ -2,9 +2,9 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Университет Священного Сердца Гулу | USHG</title>
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -17,73 +17,117 @@
             'sacred-dark': '#0a2a44',
           },
           fontFamily: {
-            'inter': ['Inter', 'sans-serif'],
+            'inter': ['Inter', 'system-ui', 'sans-serif'],
+            'playfair': ['Playfair Display', 'serif'],
           }
         }
       }
     }
   </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <style>
     body { font-family: 'Inter', sans-serif; }
+    .font-playfair { font-family: 'Playfair Display', serif; }
     .card-hover { transition: all 0.3s ease; }
     .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 30px -12px rgba(0,0,0,0.15); }
     .chat-bubble { position: fixed; bottom: 25px; right: 25px; background: #1A4D8C; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: 0.2s; }
     .chat-bubble:hover { background: #F5A623; transform: scale(1.05); }
     a:focus, button:focus, input:focus, textarea:focus { outline: 3px solid #F5A623; outline-offset: 2px; }
-    .swiper-button-next, .swiper-button-prev { color: #F5A623 !important; background: rgba(0,0,0,0.3); width: 50px; height: 50px; border-radius: 50%; transition: 0.3s; }
-    .swiper-button-next:hover, .swiper-button-prev:hover { background: rgba(245,166,35,0.8); color: white !important; }
+    .swiper-button-next, .swiper-button-prev { color: #F5A623 !important; background: rgba(0,0,0,0.4); width: 50px; height: 50px; border-radius: 50%; transition: 0.3s; }
+    .swiper-button-next:hover, .swiper-button-prev:hover { background: #F5A623; color: white !important; }
     .swiper-button-next:after, .swiper-button-prev:after { font-size: 20px; }
     .swiper-pagination-bullet { background: white; opacity: 0.7; }
     .swiper-pagination-bullet-active { background: #F5A623 !important; opacity: 1; }
     .modal { transition: all 0.3s ease; }
     .video-slide { position: relative; height: 100vh; min-height: 600px; overflow: hidden; }
-    .video-slide video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); object-fit: cover; z-index: 0; }
+    .video-slide img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
     .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(10,42,68,0.75) 0%, rgba(26,77,140,0.75) 100%); z-index: 1; }
     .slide-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; color: white; padding: 0 20px; }
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu { display: none; position: absolute; background: white; min-width: 220px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border-radius: 12px; z-index: 50; }
   </style>
 </head>
 <body class="bg-gray-50">
 
-<!-- ==================== ШАПКА / НАВИГАЦИЯ ==================== -->
+<!-- ==================== HEADER / DROPDOWN NAVIGATION ==================== -->
 <nav class="bg-white shadow-md sticky top-0 z-50 py-3">
-  <div class="container mx-auto px-4 flex justify-between items-center flex-wrap">
-    <a href="index.html" class="text-sacred-blue font-bold text-2xl flex items-center gap-2">
-      <i class="fas fa-university"></i> Университет Священного Сердца Гулу
-    </a>
-    <button id="menuBtn" class="text-sacred-blue text-2xl md:hidden"><i class="fas fa-bars"></i></button>
-    <div id="navMenu" class="hidden md:flex w-full md:w-auto mt-4 md:mt-0">
-      <ul class="flex flex-col md:flex-row gap-4 md:gap-6 text-gray-700 font-medium">
-        <li><a href="index.html" class="hover:text-sacred-gold transition">Главная</a></li>
-        <li><a href="applicants.html" class="hover:text-sacred-gold transition">Поступающим</a></li>
-        <li><a href="students.html" class="hover:text-sacred-gold transition">Студентам</a></li>
-        <li><a href="faculty.html" class="hover:text-sacred-gold transition">Преподавателям</a></li>
-        <li><a href="about.html" class="hover:text-sacred-gold transition">Об университете</a></li>
-        <li><a href="news.html" class="hover:text-sacred-gold transition">Новости</a></li>
-        <li><a href="contact.html" class="hover:text-sacred-gold transition">Контакты</a></li>
-        <li><a href="#" class="bg-sacred-blue text-white px-4 py-1 rounded-full hover:bg-sacred-dark transition">Портал</a></li>
-      </ul>
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between items-center flex-wrap">
+      <a href="index.html" class="text-sacred-blue font-bold text-2xl flex items-center gap-2">
+        <i class="fas fa-university"></i> 
+        <span class="hidden sm:inline">Университет Священного Сердца Гулу</span>
+        <span class="sm:hidden">USHG</span>
+      </a>
+      <button id="menuBtn" class="text-sacred-blue text-2xl md:hidden"><i class="fas fa-bars"></i></button>
+      <div id="navMenu" class="hidden md:flex w-full md:w-auto mt-4 md:mt-0">
+        <ul class="flex flex-col md:flex-row gap-2 md:gap-4 text-gray-700 font-medium">
+          <li><a href="index.html" class="block px-3 py-2 hover:text-sacred-gold transition">Главная</a></li>
+          
+          <!-- О нас с выпадающим меню -->
+          <li class="relative dropdown">
+            <a href="#" class="block px-3 py-2 hover:text-sacred-gold transition flex items-center gap-1">Об университете <i class="fas fa-chevron-down text-xs"></i></a>
+            <div class="dropdown-menu">
+              <a href="about.html#history" class="block px-4 py-2 hover:bg-sacred-light transition">История</a>
+              <a href="about.html#mission" class="block px-4 py-2 hover:bg-sacred-light transition">Миссия и ценности</a>
+              <a href="about.html#leadership" class="block px-4 py-2 hover:bg-sacred-light transition">Руководство</a>
+              <a href="about.html#campus" class="block px-4 py-2 hover:bg-sacred-light transition">Кампус</a>
+            </div>
+          </li>
+          
+          <!-- Поступающим с выпадающим меню -->
+          <li class="relative dropdown">
+            <a href="applicants.html" class="block px-3 py-2 hover:text-sacred-gold transition flex items-center gap-1">Поступающим <i class="fas fa-chevron-down text-xs"></i></a>
+            <div class="dropdown-menu">
+              <a href="applicants.html#programs" class="block px-4 py-2 hover:bg-sacred-light transition">Программы</a>
+              <a href="applicants.html#process" class="block px-4 py-2 hover:bg-sacred-light transition">Процесс поступления</a>
+              <a href="applicants.html#scholarships" class="block px-4 py-2 hover:bg-sacred-light transition">Стипендии</a>
+              <a href="applicants.html#fees" class="block px-4 py-2 hover:bg-sacred-light transition">Стоимость обучения</a>
+            </div>
+          </li>
+          
+          <!-- Студентам с выпадающим меню -->
+          <li class="relative dropdown">
+            <a href="students.html" class="block px-3 py-2 hover:text-sacred-gold transition flex items-center gap-1">Студентам <i class="fas fa-chevron-down text-xs"></i></a>
+            <div class="dropdown-menu">
+              <a href="students.html#portal" class="block px-4 py-2 hover:bg-sacred-light transition">Студенческий портал</a>
+              <a href="students.html#library" class="block px-4 py-2 hover:bg-sacred-light transition">Библиотека</a>
+              <a href="students.html#schedule" class="block px-4 py-2 hover:bg-sacred-light transition">Расписание</a>
+              <a href="students.html#services" class="block px-4 py-2 hover:bg-sacred-light transition">Студенческие услуги</a>
+            </div>
+          </li>
+          
+          <!-- Преподавателям -->
+          <li><a href="faculty.html" class="block px-3 py-2 hover:text-sacred-gold transition">Преподавателям</a></li>
+          
+          <!-- Новости -->
+          <li><a href="news.html" class="block px-3 py-2 hover:text-sacred-gold transition">Новости</a></li>
+          
+          <!-- Контакты -->
+          <li><a href="contact.html" class="block px-3 py-2 hover:text-sacred-gold transition">Контакты</a></li>
+          
+          <li><a href="#" class="bg-sacred-blue text-white px-4 py-2 rounded-full hover:bg-sacred-dark transition ml-2">Портал</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>
 
-<!-- ==================== ВИДЕО-КАРУСЕЛЬ ==================== -->
+<!-- ==================== ВИДЕО-КАРУСЕЛЬ С UNSplash ИЗОБРАЖЕНИЯМИ ==================== -->
 <section class="relative">
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
       
-      <!-- Слайд 1 - Добро пожаловать -->
+      <!-- Слайд 1 - Кампус -->
       <div class="swiper-slide">
         <div class="video-slide">
-          <video autoplay muted loop playsinline webkit-playsinline>
-            <source src="https://cdn.pixabay.com/video/2023/01/09/146089-791959977_large.mp4" type="video/mp4">
-          </video>
+          <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=1920&h=1080&fit=crop" alt="Кампус университета">
           <div class="hero-overlay"></div>
           <div class="slide-content">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4" data-aos="fade-up">Добро пожаловать в <span class="text-sacred-gold">Университет Священного Сердца Гулу</span></h1>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 font-playfair" data-aos="fade-up">Добро пожаловать в <span class="text-sacred-gold">Университет Священного Сердца Гулу</span></h1>
             <p class="text-xl md:text-2xl mb-6 max-w-3xl" data-aos="fade-up" data-aos-delay="100">Превосходство в образовании, служении и лидерстве — формируем будущих лидеров Уганды и мира.</p>
             <div class="flex flex-wrap gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
               <button onclick="openApplyModal()" class="bg-sacred-gold text-sacred-blue font-semibold px-8 py-3 rounded-full hover:bg-yellow-500 transition text-lg">Подать заявку</button>
@@ -96,42 +140,49 @@
       <!-- Слайд 2 - Библиотека -->
       <div class="swiper-slide">
         <div class="video-slide">
-          <video autoplay muted loop playsinline webkit-playsinline>
-            <source src="https://cdn.pixabay.com/video/2023/06/26/169824-837883827_large.mp4" type="video/mp4">
-          </video>
+          <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1920&h=1080&fit=crop" alt="Современная библиотека">
           <div class="hero-overlay"></div>
           <div class="slide-content">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4" data-aos="fade-up">Современная <span class="text-sacred-gold">Образовательная среда</span></h1>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 font-playfair" data-aos="fade-up">Современная <span class="text-sacred-gold">Образовательная среда</span></h1>
             <p class="text-xl md:text-2xl mb-6 max-w-3xl" data-aos="fade-up" data-aos-delay="100">Современная библиотека, цифровые ресурсы и пространства для совместной работы 24/7.</p>
             <button onclick="openApplyModal()" class="bg-sacred-gold text-sacred-blue font-semibold px-8 py-3 rounded-full hover:bg-yellow-500 transition text-lg">Присоединиться</button>
           </div>
         </div>
       </div>
       
-      <!-- Слайд 3 - Спорт -->
+      <!-- Слайд 3 - Студенты -->
       <div class="swiper-slide">
         <div class="video-slide">
-          <video autoplay muted loop playsinline webkit-playsinline>
-            <source src="https://cdn.pixabay.com/video/2020/07/06/43727-436416170_large.mp4" type="video/mp4">
-          </video>
+          <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920&h=1080&fit=crop" alt="Студенты на занятиях">
           <div class="hero-overlay"></div>
           <div class="slide-content">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4" data-aos="fade-up">Спортивные объекты <span class="text-sacred-gold">Мирового уровня</span></h1>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 font-playfair" data-aos="fade-up">Активная <span class="text-sacred-gold">Студенческая жизнь</span></h1>
+            <p class="text-xl md:text-2xl mb-6 max-w-3xl" data-aos="fade-up" data-aos-delay="100">Более 30 клубов, спортивных команд и студенческих организаций.</p>
+            <button onclick="openApplyModal()" class="bg-sacred-gold text-sacred-blue font-semibold px-8 py-3 rounded-full hover:bg-yellow-500 transition text-lg">Стать студентом</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Слайд 4 - Спорт -->
+      <div class="swiper-slide">
+        <div class="video-slide">
+          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&h=1080&fit=crop" alt="Спортивные сооружения">
+          <div class="hero-overlay"></div>
+          <div class="slide-content">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 font-playfair" data-aos="fade-up">Спортивные объекты <span class="text-sacred-gold">Мирового уровня</span></h1>
             <p class="text-xl md:text-2xl mb-6 max-w-3xl" data-aos="fade-up" data-aos-delay="100">Развивайте свои спортивные таланты в наших современных спортивных комплексах.</p>
             <button onclick="openApplyModal()" class="bg-sacred-gold text-sacred-blue font-semibold px-8 py-3 rounded-full hover:bg-yellow-500 transition text-lg">Присоединиться к командам</button>
           </div>
         </div>
       </div>
       
-      <!-- Слайд 4 - Выпускники -->
+      <!-- Слайд 5 - Выпускники -->
       <div class="swiper-slide">
         <div class="video-slide">
-          <video autoplay muted loop playsinline webkit-playsinline>
-            <source src="https://cdn.pixabay.com/video/2020/08/27/49241-447328141_large.mp4" type="video/mp4">
-          </video>
+          <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1920&h=1080&fit=crop" alt="Церемония выпуска">
           <div class="hero-overlay"></div>
           <div class="slide-content">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4" data-aos="fade-up">95% наших <span class="text-sacred-gold">выпускников трудоустроены</span></h1>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 font-playfair" data-aos="fade-up">95% наших <span class="text-sacred-gold">выпускников трудоустроены</span></h1>
             <p class="text-xl md:text-2xl mb-6 max-w-3xl" data-aos="fade-up" data-aos-delay="100">Начните свой путь к успешной карьере сегодня.</p>
             <button onclick="openApplyModal()" class="bg-sacred-gold text-sacred-blue font-semibold px-8 py-3 rounded-full hover:bg-yellow-500 transition text-lg">Подать заявку</button>
           </div>
@@ -147,7 +198,7 @@
 
 <!-- ==================== ПОИСК ПРОГРАММ ==================== -->
 <section id="programs" class="container mx-auto px-4 py-20">
-  <h2 class="text-3xl font-bold text-center mb-4" data-aos="fade-up">Найдите <span class="text-sacred-blue">свою программу</span></h2>
+  <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 font-playfair" data-aos="fade-up">Найдите <span class="text-sacred-blue">свою программу</span></h2>
   <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Ищите по названию программы, уровню образования или факультету в Университете Священного Сердца Гулу.</p>
   
   <div class="max-w-2xl mx-auto mb-12" data-aos="fade-up" data-aos-delay="200">
@@ -174,12 +225,12 @@
       <h3 class="font-bold mt-3">Библиотека</h3>
       <p class="text-sm text-gray-500">Электронные ресурсы</p>
     </div>
-    <div class="bg-white p-5 rounded-2xl shadow-md card-hover cursor-pointer" data-aos="zoom-in" data-aos-delay="200" onclick="alert('Стипендии: Академические (до 50%), Спортивные, Женщины в STEM. Контакты: admissions@ush.ac.ug')">
+    <div class="bg-white p-5 rounded-2xl shadow-md card-hover cursor-pointer" data-aos="zoom-in" data-aos-delay="200" onclick="alert('Стипендии: Академические (до 50%), Спортивные, Женщины в STEM.')">
       <i class="fas fa-hand-holding-usd text-4xl text-sacred-blue"></i>
       <h3 class="font-bold mt-3">Стипендии</h3>
       <p class="text-sm text-gray-500">Финансовая помощь</p>
     </div>
-    <div class="bg-white p-5 rounded-2xl shadow-md card-hover cursor-pointer" data-aos="zoom-in" data-aos-delay="300" onclick="alert('Наши преподаватели: Более 200 профессоров, многие с докторскими степенями из ведущих университетов мира.')">
+    <div class="bg-white p-5 rounded-2xl shadow-md card-hover cursor-pointer" data-aos="zoom-in" data-aos-delay="300" onclick="alert('Наши преподаватели: Более 200 профессоров.')">
       <i class="fas fa-chalkboard-user text-4xl text-sacred-blue"></i>
       <h3 class="font-bold mt-3">Преподаватели</h3>
       <p class="text-sm text-gray-500">Наши профессора</p>
@@ -199,23 +250,23 @@
 
 <!-- ==================== НОВОСТИ ==================== -->
 <section class="container mx-auto px-4 py-16">
-  <h2 class="text-3xl font-bold text-center mb-10">Последние <span class="text-sacred-blue">новости и события</span></h2>
+  <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 font-playfair">Последние <span class="text-sacred-blue">новости и события</span></h2>
   <div class="grid md:grid-cols-3 gap-8">
-    <div class="bg-white rounded-xl shadow-md p-5 card-hover" data-aos="fade-up" onclick="alert('Срок подачи заявлений продлен до 30 июня 2026 г. Подавайте заявку сейчас!')">
+    <div class="bg-white rounded-xl shadow-md p-5 card-hover" data-aos="fade-up" onclick="alert('Срок подачи заявлений продлен до 30 июня 2026 г.')">
       <i class="fas fa-bullhorn text-sacred-gold text-2xl mb-3"></i>
-      <h3 class="font-bold">Продлен срок подачи заявлений</h3>
+      <h3 class="font-bold text-lg">Продлен срок подачи заявлений</h3>
       <p class="text-gray-600 mt-2">В связи с высоким спросом срок приема продлен до 30 июня 2026 г.</p>
       <span class="text-xs text-gray-400 mt-3 block">2 дня назад</span>
     </div>
-    <div class="bg-white rounded-xl shadow-md p-5 card-hover" data-aos="fade-up" data-aos-delay="100" onclick="alert('Ежегодная спортивная олимпиада 2026 состоится 15 мая. Регистрация до 1 мая.')">
+    <div class="bg-white rounded-xl shadow-md p-5 card-hover" data-aos="fade-up" data-aos-delay="100" onclick="alert('Ежегодная спортивная олимпиада 2026 состоится 15 мая.')">
       <i class="fas fa-trophy text-sacred-gold text-2xl mb-3"></i>
-      <h3 class="font-bold">Ежегодная спортивная олимпиада 2026</h3>
+      <h3 class="font-bold text-lg">Ежегодная спортивная олимпиада 2026</h3>
       <p class="text-gray-600 mt-2">Присоединяйтесь к нам 15 мая на межвузовских соревнованиях.</p>
       <span class="text-xs text-gray-400 mt-3 block">1 неделю назад</span>
     </div>
-    <div class="bg-white rounded-xl shadow-md p-5 card-hover" data-aos="fade-up" data-aos-delay="200" onclick="alert('Гостевая лекция: Д-р Акелло выступит 10 апреля 2026 в 10:00 в главном зале.')">
+    <div class="bg-white rounded-xl shadow-md p-5 card-hover" data-aos="fade-up" data-aos-delay="200" onclick="alert('Гостевая лекция: Д-р Акелло выступит 10 апреля 2026.')">
       <i class="fas fa-microphone-alt text-sacred-gold text-2xl mb-3"></i>
-      <h3 class="font-bold">Гостевая лекция: Д-р Акелло</h3>
+      <h3 class="font-bold text-lg">Гостевая лекция: Д-р Акелло</h3>
       <p class="text-gray-600 mt-2">Лауреат Нобелевской премии выступит 10 апреля 2026 г.</p>
       <span class="text-xs text-gray-400 mt-3 block">3 дня назад</span>
     </div>
@@ -250,10 +301,35 @@
 <!-- ==================== ПОДВАЛ ==================== -->
 <footer class="bg-sacred-dark text-white pt-12 pb-6">
   <div class="container mx-auto px-4 grid md:grid-cols-4 gap-8">
-    <div><h3 class="text-xl font-bold mb-3"><i class="fas fa-university mr-2"></i>Университет Священного Сердца Гулу</h3><p class="text-sm">Превосходство в образовании, служении и лидерстве.</p></div>
-    <div><h4 class="font-bold mb-3">Быстрые ссылки</h4><ul class="space-y-2 text-sm"><li><a href="applicants.html" class="hover:text-sacred-gold transition">Поступление</a></li><li><a href="#" class="hover:text-sacred-gold transition">Студенческий портал</a></li><li><a href="faculty.html" class="hover:text-sacred-gold transition">Портал преподавателей</a></li><li><a href="#" class="hover:text-sacred-gold transition">Библиотека</a></li></ul></div>
-    <div><h4 class="font-bold mb-3">Контакты</h4><p class="text-sm"><i class="fas fa-map-marker-alt mr-2"></i> Плот 45, Дорога Священного Сердца, Гулу, Уганда</p><p class="text-sm"><i class="fas fa-phone-alt mr-2"></i> +256 123 456 789</p><p class="text-sm"><i class="fas fa-envelope mr-2"></i> info@ush.ac.ug</p></div>
-    <div><h4 class="font-bold mb-3">Подписывайтесь</h4><div class="flex gap-4 text-2xl"><i class="fab fa-facebook hover:text-sacred-gold cursor-pointer transition"></i><i class="fab fa-twitter hover:text-sacred-gold cursor-pointer transition"></i><i class="fab fa-instagram hover:text-sacred-gold cursor-pointer transition"></i><i class="fab fa-linkedin hover:text-sacred-gold cursor-pointer transition"></i></div><p class="text-xs mt-4">© 2026 Университет Священного Сердца Гулу. Все права защищены.</p></div>
+    <div>
+      <h3 class="text-xl font-bold mb-3"><i class="fas fa-university mr-2"></i>Университет Священного Сердца Гулу</h3>
+      <p class="text-sm">Превосходство в образовании, служении и лидерстве.</p>
+    </div>
+    <div>
+      <h4 class="font-bold mb-3">Быстрые ссылки</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="applicants.html" class="hover:text-sacred-gold transition">Поступление</a></li>
+        <li><a href="#" class="hover:text-sacred-gold transition">Студенческий портал</a></li>
+        <li><a href="faculty.html" class="hover:text-sacred-gold transition">Портал преподавателей</a></li>
+        <li><a href="#" class="hover:text-sacred-gold transition">Библиотека</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-bold mb-3">Контакты</h4>
+      <p class="text-sm"><i class="fas fa-map-marker-alt mr-2"></i> Плот 45, Дорога Священного Сердца, Гулу, Уганда</p>
+      <p class="text-sm"><i class="fas fa-phone-alt mr-2"></i> +256 123 456 789</p>
+      <p class="text-sm"><i class="fas fa-envelope mr-2"></i> info@ush.ac.ug</p>
+    </div>
+    <div>
+      <h4 class="font-bold mb-3">Подписывайтесь</h4>
+      <div class="flex gap-4 text-2xl">
+        <i class="fab fa-facebook hover:text-sacred-gold cursor-pointer transition"></i>
+        <i class="fab fa-twitter hover:text-sacred-gold cursor-pointer transition"></i>
+        <i class="fab fa-instagram hover:text-sacred-gold cursor-pointer transition"></i>
+        <i class="fab fa-linkedin hover:text-sacred-gold cursor-pointer transition"></i>
+      </div>
+      <p class="text-xs mt-4">© 2026 Университет Священного Сердца Гулу. Все права защищены.</p>
+    </div>
   </div>
 </footer>
 
@@ -264,18 +340,18 @@
 <script>
   AOS.init({ duration: 800, once: true });
   
-  document.getElementById('liveChatBtn').addEventListener('click', () => alert("💬 Чат поддержки: +256 123 456 789 или help@ush.ac.ug\nЧасы работы: Пн-Пт 9:00 - 17:00"));
-  
-  const menuBtn = document.getElementById('menuBtn');
-  const navMenu = document.getElementById('navMenu');
-  if(menuBtn) menuBtn.addEventListener('click', () => navMenu.classList.toggle('hidden'));
-  
   const swiper = new Swiper('.mySwiper', {
     loop: true,
     autoplay: { delay: 5000, disableOnInteraction: false },
     navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
     pagination: { el: '.swiper-pagination', clickable: true },
   });
+  
+  document.getElementById('liveChatBtn').addEventListener('click', () => alert("💬 Чат поддержки: +256 123 456 789 или help@ush.ac.ug\nЧасы работы: Пн-Пт 9:00 - 17:00"));
+  
+  const menuBtn = document.getElementById('menuBtn');
+  const navMenu = document.getElementById('navMenu');
+  if(menuBtn) menuBtn.addEventListener('click', () => navMenu.classList.toggle('hidden'));
   
   function scrollToPrograms() {
     document.getElementById('programs').scrollIntoView({ behavior: 'smooth' });
