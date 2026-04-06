@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>USHG | University of the Sacred Heart Gulu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Университет Священного Сердца Гулу | USHG</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -34,134 +34,226 @@
     .chat-bubble { position: fixed; bottom: 25px; right: 25px; background: #1A4D8C; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: 0.2s; }
     .chat-bubble:hover { background: #F5A623; transform: scale(1.05); }
     a:focus, button:focus, input:focus, textarea:focus { outline: 3px solid #F5A623; outline-offset: 2px; }
-    .swiper-button-next, .swiper-button-prev { color: #F5A623 !important; }
-    .swiper-pagination-bullet-active { background: #F5A623 !important; }
+    .swiper-button-next, .swiper-button-prev { color: #F5A623 !important; background: rgba(0,0,0,0.3); width: 50px; height: 50px; border-radius: 50%; transition: 0.3s; }
+    .swiper-button-next:hover, .swiper-button-prev:hover { background: rgba(245,166,35,0.8); color: white !important; }
+    .swiper-button-next:after, .swiper-button-prev:after { font-size: 20px; }
+    .swiper-pagination-bullet { background: white; opacity: 0.7; }
+    .swiper-pagination-bullet-active { background: #F5A623 !important; opacity: 1; }
     .modal { transition: all 0.3s ease; }
-    .video-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+    .video-slide { position: relative; height: 100vh; min-height: 600px; overflow: hidden; }
+    .video-slide video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); object-fit: cover; z-index: 0; }
     .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(10,42,68,0.75) 0%, rgba(26,77,140,0.75) 100%); z-index: 1; }
+    .slide-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; color: white; padding: 0 20px; }
   </style>
 </head>
 <body class="bg-gray-50">
 
-<!-- ==================== HEADER / NAVIGATION ==================== -->
+<!-- ==================== ШАПКА / НАВИГАЦИЯ ==================== -->
 <nav class="bg-white shadow-md sticky top-0 z-50 py-3">
   <div class="container mx-auto px-4 flex justify-between items-center flex-wrap">
     <a href="index.html" class="text-sacred-blue font-bold text-2xl flex items-center gap-2">
-      <i class="fas fa-university"></i> USHG
+      <i class="fas fa-university"></i> Университет Священного Сердца Гулу
     </a>
     <button id="menuBtn" class="text-sacred-blue text-2xl md:hidden"><i class="fas fa-bars"></i></button>
     <div id="navMenu" class="hidden md:flex w-full md:w-auto mt-4 md:mt-0">
       <ul class="flex flex-col md:flex-row gap-4 md:gap-6 text-gray-700 font-medium">
-        <li><a href="index.html" class="hover:text-sacred-gold transition">Home</a></li>
-        <li><a href="applicants.html" class="hover:text-sacred-gold transition">Applicants</a></li>
-        <li><a href="students.html" class="hover:text-sacred-gold transition">Students</a></li>
-        <li><a href="faculty.html" class="hover:text-sacred-gold transition">Faculty</a></li>
-        <li><a href="about.html" class="hover:text-sacred-gold transition">About</a></li>
-        <li><a href="news.html" class="hover:text-sacred-gold transition">News</a></li>
-        <li><a href="contact.html" class="hover:text-sacred-gold transition">Contact</a></li>
-        <li><a href="#" class="bg-sacred-blue text-white px-4 py-1 rounded-full hover:bg-sacred-dark transition">Portal</a></li>
+        <li><a href="index.html" class="hover:text-sacred-gold transition">Главная</a></li>
+        <li><a href="applicants.html" class="hover:text-sacred-gold transition">Поступающим</a></li>
+        <li><a href="students.html" class="hover:text-sacred-gold transition">Студентам</a></li>
+        <li><a href="faculty.html" class="hover:text-sacred-gold transition">Преподавателям</a></li>
+        <li><a href="about.html" class="hover:text-sacred-gold transition">Об университете</a></li>
+        <li><a href="news.html" class="hover:text-sacred-gold transition">Новости</a></li>
+        <li><a href="contact.html" class="hover:text-sacred-gold transition">Контакты</a></li>
+        <li><a href="#" class="bg-sacred-blue text-white px-4 py-1 rounded-full hover:bg-sacred-dark transition">Портал</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
-<!-- ==================== VIDEO BACKGROUND HERO SECTION ==================== -->
-<section class="relative h-screen min-h-[600px] overflow-hidden">
-  <video class="video-background" autoplay muted loop playsinline>
-    <source src="https://player.vimeo.com/external/434045863.sd.mp4?s=20c1b3c9c5f9e6b6c0e1f7e0a6b5c4d3e2f1a0b9c&profile_id=164" type="video/mp4">
-  </video>
-  <div class="hero-overlay"></div>
-  <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-    <h1 class="text-4xl md:text-6xl font-bold mb-4" data-aos="fade-up">Welcome to <span class="text-sacred-gold">University of the Sacred Heart Gulu</span></h1>
-    <p class="text-xl md:text-2xl mb-6 max-w-3xl" data-aos="fade-up" data-aos-delay="100">Excellence in Education, Service, and Leadership — Shaping the future leaders of Uganda and beyond.</p>
-    <div class="flex flex-wrap gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
-      <button onclick="openApplyModal()" class="bg-sacred-gold text-sacred-blue font-semibold px-8 py-3 rounded-full hover:bg-yellow-500 transition text-lg">Apply Now</button>
-      <a href="#programs" class="border border-white px-8 py-3 rounded-full hover:bg-white hover:text-sacred-blue transition text-lg">Explore Programs</a>
+<!-- ==================== ВИДЕО-КАРУСЕЛЬ ==================== -->
+<section class="relative">
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      
+      <!-- Слайд 1 - Добро пожаловать -->
+      <div class="swiper-slide">
+        <div class="video-slide">
+          <video autoplay muted loop playsinline webkit-playsinline>
+            <source src="https://cdn.pixabay.com/video/2023/01/09/146089-791959977_large.mp4" type="video/mp4">
+          </video>
+          <div class="hero-overlay"></div>
+          <div class="slide-content">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4" data-aos="fade-up">Добро пожаловать в <span class="text-sacred-gold">Университет Священного Сердца Гулу</span></h1>
+            <p class="text-xl md:text-2xl mb-6 max-w-3xl" data-aos="fade-up" data-aos-delay="100">Превосходство в образовании, служении и лидерстве — формируем будущих лидеров Уганды и мира.</p>
+            <div class="flex flex-wrap gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
+              <button onclick="openApplyModal()" class="bg-sacred-gold text-sacred-blue font-semibold px-8 py-3 rounded-full hover:bg-yellow-500 transition text-lg">Подать заявку</button>
+              <button onclick="scrollToPrograms()" class="border border-white px-8 py-3 rounded-full hover:bg-white hover:text-sacred-blue transition text-lg">Программы</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Слайд 2 - Библиотека -->
+      <div class="swiper-slide">
+        <div class="video-slide">
+          <video autoplay muted loop playsinline webkit-playsinline>
+            <source src="https://cdn.pixabay.com/video/2023/06/26/169824-837883827_large.mp4" type="video/mp4">
+          </video>
+          <div class="hero-overlay"></div>
+          <div class="slide-content">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4" data-aos="fade-up">Современная <span class="text-sacred-gold">Образовательная среда</span></h1>
+            <p class="text-xl md:text-2xl mb-6 max-w-3xl" data-aos="fade-up" data-aos-delay="100">Современная библиотека, цифровые ресурсы и пространства для совместной работы 24/7.</p>
+            <button onclick="openApplyModal()" class="bg-sacred-gold text-sacred-blue font-semibold px-8 py-3 rounded-full hover:bg-yellow-500 transition text-lg">Присоединиться</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Слайд 3 - Спорт -->
+      <div class="swiper-slide">
+        <div class="video-slide">
+          <video autoplay muted loop playsinline webkit-playsinline>
+            <source src="https://cdn.pixabay.com/video/2020/07/06/43727-436416170_large.mp4" type="video/mp4">
+          </video>
+          <div class="hero-overlay"></div>
+          <div class="slide-content">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4" data-aos="fade-up">Спортивные объекты <span class="text-sacred-gold">Мирового уровня</span></h1>
+            <p class="text-xl md:text-2xl mb-6 max-w-3xl" data-aos="fade-up" data-aos-delay="100">Развивайте свои спортивные таланты в наших современных спортивных комплексах.</p>
+            <button onclick="openApplyModal()" class="bg-sacred-gold text-sacred-blue font-semibold px-8 py-3 rounded-full hover:bg-yellow-500 transition text-lg">Присоединиться к командам</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Слайд 4 - Выпускники -->
+      <div class="swiper-slide">
+        <div class="video-slide">
+          <video autoplay muted loop playsinline webkit-playsinline>
+            <source src="https://cdn.pixabay.com/video/2020/08/27/49241-447328141_large.mp4" type="video/mp4">
+          </video>
+          <div class="hero-overlay"></div>
+          <div class="slide-content">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4" data-aos="fade-up">95% наших <span class="text-sacred-gold">выпускников трудоустроены</span></h1>
+            <p class="text-xl md:text-2xl mb-6 max-w-3xl" data-aos="fade-up" data-aos-delay="100">Начните свой путь к успешной карьере сегодня.</p>
+            <button onclick="openApplyModal()" class="bg-sacred-gold text-sacred-blue font-semibold px-8 py-3 rounded-full hover:bg-yellow-500 transition text-lg">Подать заявку</button>
+          </div>
+        </div>
+      </div>
+      
     </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
   </div>
 </section>
 
-<!-- ==================== COURSE SEARCH SECTION (Searchable, not full display) ==================== -->
+<!-- ==================== ПОИСК ПРОГРАММ ==================== -->
 <section id="programs" class="container mx-auto px-4 py-20">
-  <h2 class="text-3xl font-bold text-center mb-4" data-aos="fade-up">Find Your <span class="text-sacred-blue">Program</span></h2>
-  <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Search by program name, degree level, or department to discover your academic path at the University of the Sacred Heart Gulu.</p>
+  <h2 class="text-3xl font-bold text-center mb-4" data-aos="fade-up">Найдите <span class="text-sacred-blue">свою программу</span></h2>
+  <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Ищите по названию программы, уровню образования или факультету в Университете Священного Сердца Гулу.</p>
   
   <div class="max-w-2xl mx-auto mb-12" data-aos="fade-up" data-aos-delay="200">
     <div class="flex gap-4">
-      <input type="text" id="programSearchInput" placeholder="Search programs (e.g., Business, IT, Medicine, Law)..." class="flex-1 border border-gray-300 rounded-full px-6 py-3 focus:outline-none focus:border-sacred-gold">
-      <button onclick="searchPrograms()" class="bg-sacred-blue text-white px-6 py-3 rounded-full hover:bg-sacred-dark transition"><i class="fas fa-search mr-2"></i>Search</button>
+      <input type="text" id="programSearchInput" placeholder="Поиск программ (например, Бизнес, IT, Медицина, Право)..." class="flex-1 border border-gray-300 rounded-full px-6 py-3 focus:outline-none focus:border-sacred-gold">
+      <button onclick="searchPrograms()" class="bg-sacred-blue text-white px-6 py-3 rounded-full hover:bg-sacred-dark transition"><i class="fas fa-search mr-2"></i>Поиск</button>
     </div>
-    <p class="text-sm text-gray-500 mt-3 text-center">Showing search results only. <a href="applicants.html" class="text-sacred-blue hover:underline">View all programs →</a></p>
+    <p class="text-sm text-gray-500 mt-3 text-center">Показаны лучшие результаты. <a href="applicants.html" class="text-sacred-blue hover:underline">Все программы →</a></p>
   </div>
 
-  <div id="programResults" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- Search results will be dynamically populated -->
-  </div>
+  <div id="programResults" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </section>
 
-<!-- ==================== QUICK LINKS ==================== -->
+<!-- ==================== БЫСТРЫЕ ССЫЛКИ ==================== -->
 <section class="container mx-auto px-4 py-12">
   <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-    <div class="bg-white p-5 rounded-2xl shadow-md card-hover cursor-pointer" data-aos="zoom-in"><i class="fas fa-calendar-alt text-4xl text-sacred-blue"></i><h3 class="font-bold mt-3">Academic Calendar</h3><p class="text-sm text-gray-500">Key dates & deadlines</p></div>
-    <div class="bg-white p-5 rounded-2xl shadow-md card-hover cursor-pointer" data-aos="zoom-in" data-aos-delay="100"><i class="fas fa-book-open text-4xl text-sacred-blue"></i><h3 class="font-bold mt-3">Library</h3><p class="text-sm text-gray-500">E-resources & journals</p></div>
-    <div class="bg-white p-5 rounded-2xl shadow-md card-hover cursor-pointer" data-aos="zoom-in" data-aos-delay="200"><i class="fas fa-hand-holding-usd text-4xl text-sacred-blue"></i><h3 class="font-bold mt-3">Scholarships</h3><p class="text-sm text-gray-500">Financial aid options</p></div>
-    <div class="bg-white p-5 rounded-2xl shadow-md card-hover cursor-pointer" data-aos="zoom-in" data-aos-delay="300"><i class="fas fa-chalkboard-user text-4xl text-sacred-blue"></i><h3 class="font-bold mt-3">Faculty</h3><p class="text-sm text-gray-500">Meet our professors</p></div>
+    <div class="bg-white p-5 rounded-2xl shadow-md card-hover cursor-pointer" data-aos="zoom-in" onclick="alert('Академический календарь: Весенний семестр январь-май, Осенний семестр август-декабрь')">
+      <i class="fas fa-calendar-alt text-4xl text-sacred-blue"></i>
+      <h3 class="font-bold mt-3">Академический календарь</h3>
+      <p class="text-sm text-gray-500">Важные даты</p>
+    </div>
+    <div class="bg-white p-5 rounded-2xl shadow-md card-hover cursor-pointer" data-aos="zoom-in" data-aos-delay="100" onclick="alert('Цифровая библиотека: Более 50 000 электронных книг и журналов доступны онлайн.')">
+      <i class="fas fa-book-open text-4xl text-sacred-blue"></i>
+      <h3 class="font-bold mt-3">Библиотека</h3>
+      <p class="text-sm text-gray-500">Электронные ресурсы</p>
+    </div>
+    <div class="bg-white p-5 rounded-2xl shadow-md card-hover cursor-pointer" data-aos="zoom-in" data-aos-delay="200" onclick="alert('Стипендии: Академические (до 50%), Спортивные, Женщины в STEM. Контакты: admissions@ush.ac.ug')">
+      <i class="fas fa-hand-holding-usd text-4xl text-sacred-blue"></i>
+      <h3 class="font-bold mt-3">Стипендии</h3>
+      <p class="text-sm text-gray-500">Финансовая помощь</p>
+    </div>
+    <div class="bg-white p-5 rounded-2xl shadow-md card-hover cursor-pointer" data-aos="zoom-in" data-aos-delay="300" onclick="alert('Наши преподаватели: Более 200 профессоров, многие с докторскими степенями из ведущих университетов мира.')">
+      <i class="fas fa-chalkboard-user text-4xl text-sacred-blue"></i>
+      <h3 class="font-bold mt-3">Преподаватели</h3>
+      <p class="text-sm text-gray-500">Наши профессора</p>
+    </div>
   </div>
 </section>
 
-<!-- ==================== STATS ==================== -->
+<!-- ==================== СТАТИСТИКА ==================== -->
 <section class="bg-sacred-light py-16">
   <div class="container mx-auto px-4 text-center grid grid-cols-2 md:grid-cols-4 gap-6">
-    <div data-aos="fade-up"><h2 class="text-4xl font-bold text-sacred-blue">5,000+</h2><p>Students</p></div>
-    <div data-aos="fade-up" data-aos-delay="100"><h2 class="text-4xl font-bold text-sacred-blue">200+</h2><p>Faculty Members</p></div>
-    <div data-aos="fade-up" data-aos-delay="200"><h2 class="text-4xl font-bold text-sacred-blue">30+</h2><p>Academic Programs</p></div>
-    <div data-aos="fade-up" data-aos-delay="300"><h2 class="text-4xl font-bold text-sacred-blue">95%</h2><p>Graduate Employment</p></div>
+    <div data-aos="fade-up"><h2 class="text-4xl font-bold text-sacred-blue">5 000+</h2><p>Студентов</p></div>
+    <div data-aos="fade-up" data-aos-delay="100"><h2 class="text-4xl font-bold text-sacred-blue">200+</h2><p>Преподавателей</p></div>
+    <div data-aos="fade-up" data-aos-delay="200"><h2 class="text-4xl font-bold text-sacred-blue">30+</h2><p>Программ</p></div>
+    <div data-aos="fade-up" data-aos-delay="300"><h2 class="text-4xl font-bold text-sacred-blue">95%</h2><p>Трудоустройство</p></div>
   </div>
 </section>
 
-<!-- ==================== LATEST NEWS PREVIEW ==================== -->
+<!-- ==================== НОВОСТИ ==================== -->
 <section class="container mx-auto px-4 py-16">
-  <h2 class="text-3xl font-bold text-center mb-10">Latest <span class="text-sacred-blue">News & Events</span></h2>
+  <h2 class="text-3xl font-bold text-center mb-10">Последние <span class="text-sacred-blue">новости и события</span></h2>
   <div class="grid md:grid-cols-3 gap-8">
-    <div class="bg-white rounded-xl shadow-md p-5" data-aos="fade-up"><i class="fas fa-bullhorn text-sacred-gold text-2xl mb-3"></i><h3 class="font-bold">Application Deadline Extended</h3><p class="text-gray-600 mt-2">Due to high demand, undergraduate admissions extended to June 30, 2026.</p><span class="text-xs text-gray-400 mt-3 block">2 days ago</span></div>
-    <div class="bg-white rounded-xl shadow-md p-5" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-trophy text-sacred-gold text-2xl mb-3"></i><h3 class="font-bold">Annual Sports Gala 2026</h3><p class="text-gray-600 mt-2">Join us on May 15th for inter-university tournaments and cultural performances.</p><span class="text-xs text-gray-400 mt-3 block">1 week ago</span></div>
-    <div class="bg-white rounded-xl shadow-md p-5" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-microphone-alt text-sacred-gold text-2xl mb-3"></i><h3 class="font-bold">Guest Lecture: Dr. Akello</h3><p class="text-gray-600 mt-2">Nobel Laureate speaks on "Education for Peace" on April 10, 2026.</p><span class="text-xs text-gray-400 mt-3 block">3 days ago</span></div>
+    <div class="bg-white rounded-xl shadow-md p-5 card-hover" data-aos="fade-up" onclick="alert('Срок подачи заявлений продлен до 30 июня 2026 г. Подавайте заявку сейчас!')">
+      <i class="fas fa-bullhorn text-sacred-gold text-2xl mb-3"></i>
+      <h3 class="font-bold">Продлен срок подачи заявлений</h3>
+      <p class="text-gray-600 mt-2">В связи с высоким спросом срок приема продлен до 30 июня 2026 г.</p>
+      <span class="text-xs text-gray-400 mt-3 block">2 дня назад</span>
+    </div>
+    <div class="bg-white rounded-xl shadow-md p-5 card-hover" data-aos="fade-up" data-aos-delay="100" onclick="alert('Ежегодная спортивная олимпиада 2026 состоится 15 мая. Регистрация до 1 мая.')">
+      <i class="fas fa-trophy text-sacred-gold text-2xl mb-3"></i>
+      <h3 class="font-bold">Ежегодная спортивная олимпиада 2026</h3>
+      <p class="text-gray-600 mt-2">Присоединяйтесь к нам 15 мая на межвузовских соревнованиях.</p>
+      <span class="text-xs text-gray-400 mt-3 block">1 неделю назад</span>
+    </div>
+    <div class="bg-white rounded-xl shadow-md p-5 card-hover" data-aos="fade-up" data-aos-delay="200" onclick="alert('Гостевая лекция: Д-р Акелло выступит 10 апреля 2026 в 10:00 в главном зале.')">
+      <i class="fas fa-microphone-alt text-sacred-gold text-2xl mb-3"></i>
+      <h3 class="font-bold">Гостевая лекция: Д-р Акелло</h3>
+      <p class="text-gray-600 mt-2">Лауреат Нобелевской премии выступит 10 апреля 2026 г.</p>
+      <span class="text-xs text-gray-400 mt-3 block">3 дня назад</span>
+    </div>
   </div>
-  <div class="text-center mt-8"><a href="news.html" class="border border-sacred-blue text-sacred-blue px-6 py-2 rounded-full hover:bg-sacred-blue hover:text-white transition">All News <i class="fas fa-arrow-right ml-2"></i></a></div>
 </section>
 
-<!-- ==================== APPLICATION MODAL ==================== -->
+<!-- ==================== МОДАЛЬНОЕ ОКНО ЗАЯВКИ ==================== -->
 <div id="applyModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 modal">
   <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
     <div class="flex justify-between items-center mb-6">
-      <h2 class="text-2xl font-bold text-sacred-blue">Apply to University of the Sacred Heart Gulu</h2>
+      <h2 class="text-2xl font-bold text-sacred-blue">Подача заявки в Университет Священного Сердца Гулу</h2>
       <button onclick="closeApplyModal()" class="text-gray-500 hover:text-sacred-gold text-2xl">&times;</button>
     </div>
     <form id="applicationForm">
       <div class="grid md:grid-cols-2 gap-4">
-        <div><label class="block text-gray-700 mb-1">First Name *</label><input type="text" id="firstName" class="w-full border rounded-lg p-2" required></div>
-        <div><label class="block text-gray-700 mb-1">Last Name *</label><input type="text" id="lastName" class="w-full border rounded-lg p-2" required></div>
+        <div><label class="block text-gray-700 mb-1">Имя *</label><input type="text" id="firstName" class="w-full border rounded-lg p-2" required></div>
+        <div><label class="block text-gray-700 mb-1">Фамилия *</label><input type="text" id="lastName" class="w-full border rounded-lg p-2" required></div>
         <div><label class="block text-gray-700 mb-1">Email *</label><input type="email" id="email" class="w-full border rounded-lg p-2" required></div>
-        <div><label class="block text-gray-700 mb-1">Phone *</label><input type="tel" id="phone" class="w-full border rounded-lg p-2" required></div>
-        <div class="md:col-span-2"><label class="block text-gray-700 mb-1">Select Program *</label><select id="program" class="w-full border rounded-lg p-2" required><option value="">Select...</option><option>Business Administration (Bachelor)</option><option>Education (Bachelor)</option><option>Information Technology (Bachelor)</option><option>Public Health (Bachelor)</option><option>Law - LLB (Bachelor)</option><option>MBA (Master)</option><option>Master of Education Leadership</option><option>Master of Public Health (MPH)</option></select></div>
-        <div class="md:col-span-2"><label class="block text-gray-700 mb-1">Previous Institution</label><input type="text" id="previousInstitution" class="w-full border rounded-lg p-2"></div>
-        <div class="md:col-span-2"><label class="block text-gray-700 mb-1">Additional Information</label><textarea rows="3" id="additionalInfo" class="w-full border rounded-lg p-2"></textarea></div>
+        <div><label class="block text-gray-700 mb-1">Телефон *</label><input type="tel" id="phone" class="w-full border rounded-lg p-2" required></div>
+        <div class="md:col-span-2"><label class="block text-gray-700 mb-1">Выберите программу *</label><select id="program" class="w-full border rounded-lg p-2" required><option value="">Выберите...</option><option>Бизнес-администрирование (Бакалавриат)</option><option>Педагогическое образование (Бакалавриат)</option><option>Информационные технологии (Бакалавриат)</option><option>Общественное здравоохранение (Бакалавриат)</option><option>Юриспруденция (Бакалавриат)</option><option>MBA (Магистратура)</option><option>Магистр педагогического лидерства</option><option>Магистр общественного здравоохранения (MPH)</option></select></div>
+        <div class="md:col-span-2"><label class="block text-gray-700 mb-1">Предыдущее учебное заведение</label><input type="text" id="previousInstitution" class="w-full border rounded-lg p-2"></div>
+        <div class="md:col-span-2"><label class="block text-gray-700 mb-1">Дополнительная информация</label><textarea rows="3" id="additionalInfo" class="w-full border rounded-lg p-2"></textarea></div>
       </div>
       <div class="mt-6 flex gap-4 justify-end">
-        <button type="button" onclick="closeApplyModal()" class="px-6 py-2 border rounded-full hover:bg-gray-100 transition">Cancel</button>
-        <button type="submit" class="bg-sacred-gold text-sacred-blue font-semibold px-6 py-2 rounded-full hover:bg-yellow-500 transition">Submit Application</button>
+        <button type="button" onclick="closeApplyModal()" class="px-6 py-2 border rounded-full hover:bg-gray-100 transition">Отмена</button>
+        <button type="submit" class="bg-sacred-gold text-sacred-blue font-semibold px-6 py-2 rounded-full hover:bg-yellow-500 transition">Отправить заявку</button>
       </div>
     </form>
   </div>
 </div>
 
-<!-- ==================== FOOTER ==================== -->
+<!-- ==================== ПОДВАЛ ==================== -->
 <footer class="bg-sacred-dark text-white pt-12 pb-6">
   <div class="container mx-auto px-4 grid md:grid-cols-4 gap-8">
-    <div><h3 class="text-xl font-bold mb-3"><i class="fas fa-university mr-2"></i>University of the Sacred Heart Gulu</h3><p class="text-sm">Excellence in Education, Service, and Leadership — Shaping tomorrow's leaders.</p></div>
-    <div><h4 class="font-bold mb-3">Quick Links</h4><ul class="space-y-2 text-sm"><li><a href="applicants.html" class="hover:text-sacred-gold transition">Admissions</a></li><li><a href="#" class="hover:text-sacred-gold transition">Student Portal</a></li><li><a href="faculty.html" class="hover:text-sacred-gold transition">Faculty Portal</a></li><li><a href="#" class="hover:text-sacred-gold transition">Library</a></li></ul></div>
-    <div><h4 class="font-bold mb-3">Contact Us</h4><p class="text-sm"><i class="fas fa-map-marker-alt mr-2"></i> Plot 45, Sacred Heart Road, Gulu, Uganda</p><p class="text-sm"><i class="fas fa-phone-alt mr-2"></i> +256 123 456 789</p><p class="text-sm"><i class="fas fa-envelope mr-2"></i> info@ush.ac.ug</p></div>
-    <div><h4 class="font-bold mb-3">Follow Us</h4><div class="flex gap-4 text-2xl"><i class="fab fa-facebook hover:text-sacred-gold cursor-pointer transition"></i><i class="fab fa-twitter hover:text-sacred-gold cursor-pointer transition"></i><i class="fab fa-instagram hover:text-sacred-gold cursor-pointer transition"></i><i class="fab fa-linkedin hover:text-sacred-gold cursor-pointer transition"></i></div><p class="text-xs mt-4">© 2026 University of the Sacred Heart Gulu. All rights reserved.</p></div>
+    <div><h3 class="text-xl font-bold mb-3"><i class="fas fa-university mr-2"></i>Университет Священного Сердца Гулу</h3><p class="text-sm">Превосходство в образовании, служении и лидерстве.</p></div>
+    <div><h4 class="font-bold mb-3">Быстрые ссылки</h4><ul class="space-y-2 text-sm"><li><a href="applicants.html" class="hover:text-sacred-gold transition">Поступление</a></li><li><a href="#" class="hover:text-sacred-gold transition">Студенческий портал</a></li><li><a href="faculty.html" class="hover:text-sacred-gold transition">Портал преподавателей</a></li><li><a href="#" class="hover:text-sacred-gold transition">Библиотека</a></li></ul></div>
+    <div><h4 class="font-bold mb-3">Контакты</h4><p class="text-sm"><i class="fas fa-map-marker-alt mr-2"></i> Плот 45, Дорога Священного Сердца, Гулу, Уганда</p><p class="text-sm"><i class="fas fa-phone-alt mr-2"></i> +256 123 456 789</p><p class="text-sm"><i class="fas fa-envelope mr-2"></i> info@ush.ac.ug</p></div>
+    <div><h4 class="font-bold mb-3">Подписывайтесь</h4><div class="flex gap-4 text-2xl"><i class="fab fa-facebook hover:text-sacred-gold cursor-pointer transition"></i><i class="fab fa-twitter hover:text-sacred-gold cursor-pointer transition"></i><i class="fab fa-instagram hover:text-sacred-gold cursor-pointer transition"></i><i class="fab fa-linkedin hover:text-sacred-gold cursor-pointer transition"></i></div><p class="text-xs mt-4">© 2026 Университет Священного Сердца Гулу. Все права защищены.</p></div>
   </div>
 </footer>
 
@@ -172,29 +264,40 @@
 <script>
   AOS.init({ duration: 800, once: true });
   
-  document.getElementById('liveChatBtn').addEventListener('click', () => alert("💬 Live support: +256 123 456 789 or help@ush.ac.ug\nHours: Mon-Fri 9:00 AM - 5:00 PM"));
+  document.getElementById('liveChatBtn').addEventListener('click', () => alert("💬 Чат поддержки: +256 123 456 789 или help@ush.ac.ug\nЧасы работы: Пн-Пт 9:00 - 17:00"));
   
   const menuBtn = document.getElementById('menuBtn');
   const navMenu = document.getElementById('navMenu');
   if(menuBtn) menuBtn.addEventListener('click', () => navMenu.classList.toggle('hidden'));
   
+  const swiper = new Swiper('.mySwiper', {
+    loop: true,
+    autoplay: { delay: 5000, disableOnInteraction: false },
+    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+    pagination: { el: '.swiper-pagination', clickable: true },
+  });
+  
+  function scrollToPrograms() {
+    document.getElementById('programs').scrollIntoView({ behavior: 'smooth' });
+  }
+  
   const programs = [
-    { name: "Business Administration", degree: "Bachelor", duration: "4 years", department: "School of Business", description: "Study management, marketing, finance, and entrepreneurship." },
-    { name: "Education", degree: "Bachelor", duration: "4 years", department: "Faculty of Education", description: "Prepare to become a qualified teacher for primary and secondary schools." },
-    { name: "Information Technology", degree: "Bachelor", duration: "4 years", department: "Faculty of IT", description: "Programming, networks, databases, and cybersecurity." },
-    { name: "Public Health", degree: "Bachelor", duration: "4 years", department: "Faculty of Health Sciences", description: "Disease prevention and community health promotion." },
-    { name: "Law (LLB)", degree: "Bachelor", duration: "5 years", department: "Faculty of Law", description: "Study Ugandan and international legal systems." },
-    { name: "MBA", degree: "Master", duration: "2 years", department: "School of Business", description: "Advanced strategic management and leadership." },
-    { name: "Master of Education Leadership", degree: "Master", duration: "2 years", department: "Faculty of Education", description: "Prepare for educational leadership roles." },
-    { name: "Master of Public Health (MPH)", degree: "Master", duration: "2 years", department: "Faculty of Health Sciences", description: "Epidemiology, health policy, and management." },
-    { name: "Postgraduate Diploma in IT", degree: "Diploma", duration: "1 year", department: "Faculty of IT", description: "Advanced IT skills for professionals." }
+    { name: "Бизнес-администрирование", degree: "Бакалавриат", duration: "4 года", department: "Бизнес-школа", description: "Изучение управления, маркетинга, финансов и предпринимательства." },
+    { name: "Педагогическое образование", degree: "Бакалавриат", duration: "4 года", department: "Факультет образования", description: "Подготовка учителей для начальных и средних школ." },
+    { name: "Информационные технологии", degree: "Бакалавриат", duration: "4 года", department: "Факультет ИТ", description: "Программирование, сети, базы данных и кибербезопасность." },
+    { name: "Общественное здравоохранение", degree: "Бакалавриат", duration: "4 года", department: "Факультет медицинских наук", description: "Профилактика заболеваний и укрепление здоровья населения." },
+    { name: "Юриспруденция (LLB)", degree: "Бакалавриат", duration: "5 лет", department: "Юридический факультет", description: "Изучение законов Уганды и международного права." },
+    { name: "MBA", degree: "Магистратура", duration: "2 года", department: "Бизнес-школа", description: "Углубленное изучение стратегического управления." },
+    { name: "Магистр педагогического лидерства", degree: "Магистратура", duration: "2 года", department: "Факультет образования", description: "Подготовка руководителей образования." },
+    { name: "Магистр общественного здравоохранения (MPH)", degree: "Магистратура", duration: "2 года", department: "Факультет медицинских наук", description: "Эпидемиология, управление здравоохранением." },
+    { name: "Диплом о послевузовском образовании в области ИТ", degree: "Диплом", duration: "1 год", department: "Факультет ИТ", description: "Повышение квалификации в сфере информационных технологий." }
   ];
   
   function displaySearchResults(filteredPrograms) {
     const container = document.getElementById('programResults');
     if(!container) return;
     if(filteredPrograms.length === 0) {
-      container.innerHTML = '<div class="text-center text-gray-500 py-10 col-span-full">No programs found. Try a different search term.</div>';
+      container.innerHTML = '<div class="text-center text-gray-500 py-10 col-span-full">Программы не найдены. Попробуйте другой поисковый запрос.</div>';
       return;
     }
     container.innerHTML = filteredPrograms.map(prog => `
@@ -205,7 +308,7 @@
         <p class="text-gray-600 text-sm mb-2"><i class="fas fa-clock mr-1"></i> ${prog.duration}</p>
         <p class="text-gray-600 text-sm mb-2"><i class="fas fa-building mr-1"></i> ${prog.department}</p>
         <p class="text-gray-500 text-sm mt-2">${prog.description}</p>
-        <button onclick='openApplyWithProgram("${prog.name}")' class="mt-4 text-sacred-blue font-semibold hover:text-sacred-gold transition">Apply Now →</button>
+        <button onclick='openApplyWithProgram("${prog.name}")' class="mt-4 text-sacred-blue font-semibold hover:text-sacred-gold transition">Подать заявку →</button>
       </div>
     `).join('');
   }
@@ -236,7 +339,7 @@
     e.preventDefault();
     const firstName = document.getElementById('firstName').value;
     const program = document.getElementById('program').value;
-    alert(`✅ Thank you, ${firstName}! Your application for "${program}" has been submitted. We will contact you within 3 business days.`);
+    alert(`✅ Спасибо, ${firstName}! Ваша заявка на программу "${program}" успешно отправлена. Мы свяжемся с вами в течение 3 рабочих дней.`);
     closeApplyModal();
     this.reset();
   });
